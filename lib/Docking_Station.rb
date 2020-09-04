@@ -1,17 +1,20 @@
 class DockingStation
-  @@docked_bikes = []
-  puts @@docked_bikes.length
-    def release_bike
-      if @@docked_bikes.length == 0
-        fail "No bike present"
-      end
-      Bike.new
-    end
+  attr_reader :docked_bikes
 
-    def dock(bike)
-      @@docked_bikes << bike
+  def initialize
+    @docked_bikes = []
+  end
+
+  def release_bike
+    if @docked_bikes.length == 0
+      fail "No bike present"
     end
-    attr_reader :docked_bikes
+    Bike.new
+  end
+
+  def dock(bike)
+    @docked_bikes << bike
+  end
 end
 
 
