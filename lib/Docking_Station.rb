@@ -12,14 +12,20 @@ class DockingStation
     if empty?
       fail "No bike present"
     end
-    Bike.new
+
+    if @docked_bikes.none? { |bike| bike[:working] == true }
+      fail "No working bikes"
+    end
+
+    released_bike = @docked_bikes.pop
+    released_bike[:bike]
   end
 
-  def dock(bike)
+  def dock(bike, working = true)
     if full?
       fail "Dock is full"
     end
-    @docked_bikes << bike
+    @docked_bikes << { bike: bike, working: working }
   end
 
   private
